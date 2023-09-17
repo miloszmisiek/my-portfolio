@@ -8,4 +8,5 @@ export default async function Home({
 }) {
   const { t } = await useTranslation(lng, "translation");
   return <div>{t("homepage")}</div>;
+  
 }
