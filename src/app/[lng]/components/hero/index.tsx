@@ -9,10 +9,27 @@ const buildStringFromJsxArray = (jsxArray: JSX.Element[]) => {
   return jsxArray.map(jsxToString).join(" ");
 };
 
+const styleValues = (value: string | number) =>
+  jsxToString(
+    <span
+      style={{
+        color: `var(--${
+          typeof value === "number"
+            ? "numbers"
+            : value === "["
+            ? "arrays"
+            : "strings"
+        })`,
+      }}
+    >
+      {value}
+    </span>
+  );
+
 const DATA = [
-  { key: "profession", value: "'Frontend Developer'," },
-  { key: "location", value: "'Szczecin, Poland'," },
-  { key: "yearsOfExperience", value: "1," },
+  { key: "profession", value: "'Frontend Developer'" },
+  { key: "location", value: "'Szczecin, Poland'" },
+  { key: "yearsOfExperience", value: 1 },
   { key: "techStack", value: "[", pause: 0 },
   // Add more here
 ];
@@ -21,31 +38,39 @@ const SHORT_INDENTATION = "<span>&emsp;&emsp;</span>";
 const LONG_INDENTATION = "<span>&emsp;&emsp;&emsp;&emsp;</span>";
 const PAUSE = 2000;
 
+const ELEMENTS = [
+  <span style={{ color: "var(--const)" }}>const</span>,
+  <span style={{ color: "var(--variable)" }}>MILOSZ_MISIEK</span>,
+  <span style={{ color: "var(--operatorsAndComma)" }}>=</span>,
+  <span style={{ color: "var(--curlyBrace)" }}>
+    {"{"}
+    <br />
+  </span>,
+];
+
 export default function Hero() {
-  const elements = [
-    <span style={{ color: "var(--const)" }}>const</span>,
-    <span style={{ color: "var(--variable)" }}>MILOSZ_MISIEK</span>,
-    <span style={{ color: "var(--operatorsAndComma)" }}>=</span>,
-    <span style={{ color: "var(--curlyBrace)" }}>
-      {"{"}
-      <br />
-    </span>,
-  ];
+  const parseKeyElements = (key: string) =>
+    jsxToString(
+      <span style={{ color: "var(--objectKeys)" }}>{key + ": "}</span>
+    );
+  const parseTechStackElements = (item: string) =>
+    jsxToString(<span style={{ color: "var(--strings)" }}>{`'${item}'`}</span>);
 
   // Use utility function to build full string
-  const fullString = buildStringFromJsxArray(elements);
+  const fullString = buildStringFromJsxArray(ELEMENTS);
   const typeInfo = (
     typewriter: TypewriterClass,
     key: string,
-    value: string,
+    value: string | number,
     pause: number,
-    indentation: string
+    indentation: string,
+    lastItem?: boolean
   ) => {
     typewriter
       .pasteString(indentation, null)
-      .typeString(`${key}: `)
+      .typeString(parseKeyElements(key))
       .pauseFor(pause)
-      .typeString(`${value}<br/>`);
+      .typeString(`${styleValues(value) + (lastItem ? "" : ",")}<br/>`);
   };
 
   const typeStack = (
@@ -57,13 +82,8 @@ export default function Hero() {
     typewriter
       .pasteString(indentation, null)
       .pauseFor(pause)
-      .typeString(`'${tech}',<br/>`);
+      .typeString(`${parseTechStackElements(tech)},<br/>`);
   };
-
-  const constStringElement = (
-    <span style={{ color: "var(--const)" }}>const</span>
-  );
-  const constString = ReactDOMServer.renderToString(constStringElement);
   return (
     <Typewriter
       onInit={(typewriter) => {
@@ -71,13 +91,15 @@ export default function Hero() {
         //   .callFunction(() => {
         //     console.log("String typed out!");
         //   })
-        DATA.forEach((item) => {
+        DATA.forEach((item, idx, array) => {
+          const lastItem = idx === array.length - 1;
           typeInfo(
             typewriter,
             item.key,
             item.value,
             item.pause ?? PAUSE,
-            SHORT_INDENTATION
+            SHORT_INDENTATION,
+            lastItem
           );
         });
         TECH_STACK.forEach((item) => {
@@ -90,8 +112,15 @@ export default function Hero() {
         //   })
         typewriter
           .pasteString(SHORT_INDENTATION, null)
-          .typeString("],<br/>")
-          .typeString("};<br/>")
+          .typeString(
+            jsxToString(<span style={{ color: "var(--arrays)" }}>]</span>) +
+              ",<br/>"
+          )
+          .typeString(
+            jsxToString(
+              <span style={{ color: "var(--curlyBrace)" }}>{"}"}</span>
+            ) + ";<br/>"
+          )
           .start();
       }}
     />
