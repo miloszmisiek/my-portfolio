@@ -1,7 +1,8 @@
 import { useTranslation } from "../i18n";
-import Hero from "./components/hero";
 import ProfilePic from "./components/profilePic";
 import { firaCode, inter, questrial, roboto } from "@/fonts";
+import TypeWriter from "./components/typewriter";
+import Arrow from "../../../public/arrowFunc.svg";
 
 export default async function Home({
   params: { lng },
@@ -12,7 +13,6 @@ export default async function Home({
 
   return (
     <div className="relative">
-      {/* <ProfilePic /> */}
       {/* <div className="w-100 flex justify-center justify-items-center">
         <h1
           className={`${questrial.className} text-4xl md:text-6xl tracking-widest`}
@@ -20,10 +20,15 @@ export default async function Home({
           MILOSZ MISIEK
         </h1>
       </div> */}
-      <div
-        className={`${firaCode.className} w-100 flex justify-items-center p-8 tracking-wider`}
-      >
-        <Hero />
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <ProfilePic />
+        </div>
+        <div
+          className={`${firaCode.className} w-100 flex justify-items-center p-8 tracking-wider`}
+        >
+          <TypeWriter />
+        </div>
       </div>
     </div>
   );
