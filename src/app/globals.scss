@@ -1,3 +1,5 @@
+
+@import "../../node_modules/nes.css/css/nes.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,6 +24,7 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
     --background-color-main: 25, 25, 23;
+    --button-background: #92cd41;
   }
 }
 
@@ -29,3 +32,5 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(var(--background-color-main));
 }
+
+

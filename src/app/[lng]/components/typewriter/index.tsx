@@ -36,7 +36,7 @@ const ELEMENTS = [
   </span>,
 ];
 
-export default function TypeWriter() {
+export default function TypeWriter({ onStop }: { onStop: any }) {
   const parseKeyElements = (key: string) =>
     jsxToString(
       <span style={{ color: "var(--objectKeys)" }}>{key + ": "}</span>
@@ -120,6 +120,10 @@ export default function TypeWriter() {
               <span style={{ color: "var(--curlyBrace)" }}>{"}"}</span>
             ) + ";<br/>"
           )
+          .callFunction(() => {
+            onStop();
+            console.log("onStop");
+          })
           .start();
       }}
     />

@@ -1,10 +1,9 @@
-import "../globals.css";
+import "../globals.scss";
 import "tw-elements/dist/css/tw-elements.min.css";
 import type { Metadata } from "next";
-import { Inter, Roboto, Libre_Caslon_Display } from "next/font/google";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
-import { roboto } from "@/fonts";
+import { roboto, pressStart2P } from "@/fonts";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -26,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className={roboto.className}>{children}</body>
+      <body className={pressStart2P.className}>{children}</body>
     </html>
   );
 }
