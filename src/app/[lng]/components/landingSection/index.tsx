@@ -10,20 +10,20 @@ export default function LandingSection() {
   const handleStop = () => setIsTypingStopped(true);
   return (
     <div className="min-h-screen">
-      <div className="grid grid-cols-2 gap-4 items-center min-h-[50vh]">
+      <div className="grid grid-cols-2 gap-4 items-end min-h-[60vh]">
         {/* Avatar */}
-        <div className="flex justify-end">
+        <div className="flex justify-end mb-14">
           <ProfilePic />
         </div>
         {/* TypeWriter */}
         <div
-          className={`${firaCode.className} w-100 flex justify-items-center p-8 tracking-wider h-96`}
+          className={`${firaCode.className} w-100 flex justify-items-center p-8 tracking-wider h-96 mb-14`}
         >
           <TypeWriter onStop={handleStop} />
         </div>
       </div>
 
-      <div className="min-h-[50vh] flex justify-center items-start">
+      <div className="min-h-[40vh] flex justify-center items-start">
         {isTypingStopped && (
           <button className="nes-btn is-success">Load Character</button>
         )}
