@@ -8,8 +8,5 @@ export default async function Home({
 }) {
   const { t } = await useTranslation(lng, "translation");
 
-  return (
-    // Wrapper
-    <LandingSection />
-  );
+  return <LandingSection />;
 }

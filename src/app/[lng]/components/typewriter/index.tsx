@@ -45,6 +45,7 @@ export default function TypeWriter({ onStop }: { onStop: any }) {
     jsxToString(<span style={{ color: "var(--strings)" }}>{`'${item}'`}</span>);
 
   const fullString = buildStringFromJsxArray(ELEMENTS);
+
   const typeInfo = (
     typewriter: TypewriterClass,
     key: string,
@@ -83,13 +84,12 @@ export default function TypeWriter({ onStop }: { onStop: any }) {
       .pasteString(indentation, null)
       .typeString(`${parseTechStackElements(tech)},<br/>`);
   };
+
   return (
     <Typewriter
       onInit={(typewriter) => {
         typewriter.changeDelay(20).typeString(fullString);
-        //   .callFunction(() => {
-        //     console.log("String typed out!");
-        //   })
+
         DATA.forEach((item, idx, array) => {
           const lastItem = idx === array.length - 1;
           typeInfo(
@@ -101,18 +101,15 @@ export default function TypeWriter({ onStop }: { onStop: any }) {
             lastItem
           );
         });
+
         TECH_STACK.forEach((item) => {
           typeStack(typewriter, item, PAUSE, LONG_INDENTATION);
         });
 
-        //   .deleteAll()
-        //   .callFunction(() => {
-        //     console.log("All strings were deleted");
-        //   })
         typewriter
           .pasteString(SHORT_INDENTATION, null)
           .typeString(
-            jsxToString(<span style={{ color: "var(--arrays)" }}>]</span>) +
+            jsxToString(<span style={{ color: "var(--arrays)" }}>{"]"}</span>) +
               ",<br/>"
           )
           .typeString(
@@ -122,7 +119,6 @@ export default function TypeWriter({ onStop }: { onStop: any }) {
           )
           .callFunction(() => {
             onStop();
-            console.log("onStop");
           })
           .start();
       }}
