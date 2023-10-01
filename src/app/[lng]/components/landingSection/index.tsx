@@ -4,6 +4,8 @@ import { useState } from "react";
 import ProfilePic from "../profilePic";
 import TypeWriter from "../typewriter";
 import { firaCode, inter, questrial, roboto, pressStart2P } from "@/fonts";
+import styles from "./landingSection.module.scss";
+import EightbitLoader from "../eightbitLoader";
 
 export default function LandingSection() {
   const [isTypingStopped, setIsTypingStopped] = useState(false);
@@ -12,7 +14,7 @@ export default function LandingSection() {
     <div className="min-h-screen">
       <div className="grid grid-cols-2 gap-4 items-end min-h-[60vh]">
         {/* Avatar */}
-        <div className="flex justify-end mb-14">
+        <div className={`${styles.fadeIn} flex justify-end mb-14`}>
           <ProfilePic />
         </div>
         {/* TypeWriter */}
@@ -25,7 +27,7 @@ export default function LandingSection() {
 
       <div className="min-h-[40vh] flex justify-center items-start">
         {isTypingStopped && (
-          <button className="nes-btn is-success">Load Character</button>
+          <button className={styles.eightbitBtn}>Load Character</button>
         )}
       </div>
     </div>
